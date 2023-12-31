@@ -1,0 +1,55 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://nodes/player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scripts/mapGenerator.gd" type="Script" id=2]
+[ext_resource path="res://scripts/create_puddles.gd" type="Script" id=3]
+[ext_resource path="res://scripts/summon_waves.gd" type="Script" id=5]
+[ext_resource path="res://nodes/wavespawnpoint.tscn" type="PackedScene" id=6]
+[ext_resource path="res://sprite/background.png" type="Texture" id=7]
+
+[node name="main" type="Node2D"]
+
+[node name="Background" type="Sprite" parent="."]
+position = Vector2( 337.5, 230.5 )
+scale = Vector2( 2.745, 1.761 )
+texture = ExtResource( 7 )
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2( 0, -1.52588e-05 )
+
+[node name="puddles" type="Node2D" parent="Node2D"]
+position = Vector2( 0, 1.52588e-05 )
+script = ExtResource( 3 )
+
+[node name="border" type="StaticBody2D" parent="Node2D"]
+position = Vector2( 285, 178 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/border"]
+build_mode = 1
+polygon = PoolVector2Array( 731, -327, 739, 426, 715, -311, -587, -319, -553, 402, 739, 429, -563, 442, -598, 442, -614, -340 )
+
+[node name="trees" type="Node2D" parent="Node2D"]
+position = Vector2( 0, 1.52588e-05 )
+script = ExtResource( 2 )
+
+[node name="wave_points" type="Node2D" parent="Node2D"]
+position = Vector2( 0, 1.52588e-05 )
+script = ExtResource( 5 )
+
+[node name="wave_point" parent="Node2D/wave_points" instance=ExtResource( 6 )]
+position = Vector2( 131, 511 )
+
+[node name="wave_point4" parent="Node2D/wave_points" instance=ExtResource( 6 )]
+position = Vector2( 793, 2 )
+
+[node name="wave_point5" parent="Node2D/wave_points" instance=ExtResource( 6 )]
+position = Vector2( 268, -79 )
+
+[node name="wave_point2" parent="Node2D/wave_points" instance=ExtResource( 6 )]
+position = Vector2( 870, 424 )
+
+[node name="wave_point3" parent="Node2D/wave_points" instance=ExtResource( 6 )]
+position = Vector2( -124, 189 )
+
+[node name="player" parent="Node2D" instance=ExtResource( 1 )]
+position = Vector2( 280, 203 )
