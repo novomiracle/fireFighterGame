@@ -23,7 +23,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func closestTree(b,a):
-	return position.distance_to(a.position) -position.distance_to(b.position) > 0
+		return position.distance_to(a.position) -position.distance_to(b.position) > 0
 
 func _process(delta):
 	if Input.is_action_just_pressed("action") && isIn:
@@ -49,11 +49,11 @@ func _process(delta):
 
 
 func _on_entered(area):
-	if area.name =="player":
-		isIn = true
 	if area.name =="puddle":
 		isBurning = false
 		$AnimationPlayer.play("idle")
+	if area.name =="player":
+		isIn = true
 	
 
 func _on_exited(area):

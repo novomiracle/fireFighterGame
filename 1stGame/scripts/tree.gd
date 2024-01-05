@@ -27,17 +27,22 @@ func timeout():
 func _process(delta):
 	if Input.is_action_just_pressed("action") && isIn:
 		isBurning = true
-		$AnimationPlayer.play("burning")
 		timer.stop()
 		timer.start()
 	if fIsIn:
 		isBurning = false
-		$AnimationPlayer.play("idle")
 		timer.stop()
 		timer.start()
 	if hp <= 0:
-		get_parent().get_parent().get_node("player").hp+= 1
+		if Global.playing:
+			Global.score +=1
+		if get_parent().get_parent().get_parent().get_node("player").hp <= 248:
+			get_parent().get_parent().get_parent().get_node("player").hp+= 2
 		queue_free()
+	if isBurning:
+		$AnimationPlayer.play("burning")
+	else:
+		$AnimationPlayer.play("idle")
 
 
 func _on_enter(area):

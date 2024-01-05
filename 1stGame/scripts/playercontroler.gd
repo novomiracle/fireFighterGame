@@ -26,11 +26,13 @@ func _process(delta):
 	if Input.is_action_pressed("right"):
 		velocity.x += 1
 	move_and_slide(velocity.normalized()*speed)
-	self.scale = Vector2(max(min(2,hp/100),0.5),max(min(2,hp/100),0.5))
-	get_node("player/CollisionShape2D").scale = Vector2(1,1)
+	$CollisionShape2D.scale = Vector2(max(min(2,hp/100),0.5),max(min(2,hp/100),0.5))
+	$FirePlayer.scale = Vector2(max(min(2,hp/100),0.5),max(min(2,hp/100),0.5))
 	if hp <= 0:
 		var scene = load("res://nodes/loseScreen.tscn").instance()
-		get_tree().root.remove_child(get_parent())
+		#get_tree().root.remove_child(get_parent())
+		get_tree().root.get_child(1).get_node("Game").queue_free()
+		Global.playing = false
 		get_tree().root.add_child(scene)
 
 

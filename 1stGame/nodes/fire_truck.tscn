@@ -60,7 +60,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=7]
-extents = Vector2( 8, 4 )
+extents = Vector2( 8, 4.5 )
 
 [node name="fire_truck" type="KinematicBody2D" groups=["fire_trucks"]]
 script = ExtResource( 2 )
@@ -93,7 +93,7 @@ anims/burning = SubResource( 3 )
 anims/idle = SubResource( 4 )
 
 [node name="fireTruck" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -4 )
+position = Vector2( 0, -3.5 )
 shape = SubResource( 7 )
 
 [connection signal="area_entered" from="fire_truck" to="." method="_on_fire_truck_entered"]

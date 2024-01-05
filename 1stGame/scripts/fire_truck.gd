@@ -31,14 +31,17 @@ func _process(delta):
 	attackTimer += delta
 	if playerIn:
 		if(position.distance_to(get_parent().find_node("player").position) > 30):
-			move_and_slide((get_parent().find_node("player").position - position).normalized()*speed)
+			moving = (get_parent().find_node("player").position - position).normalized()
+			move_and_slide(moving*speed)
 	elif is_instance_valid(theTree) && theTree.isBurning:
 		if(position.distance_to(theTree.position) > 3):
-				move_and_slide((theTree.position - position).normalized()*speed)
+			moving = (theTree.position - position).normalized()
+			move_and_slide(moving*speed)
 	else:
 		trees = get_parent().find_node("trees").get_children()
 		trees.sort_custom(self,"closestTree")
 		findBurning(0)
+		moving = Vector2(0,0)
 	if attackPlayer && attackTimer > attackWaitTime:
 		attackTimer = 0
 		attack()
@@ -49,6 +52,12 @@ func _process(delta):
 		$AnimationPlayer.play("burning")
 		timer.stop()
 		timer.start()
+	if moving.x < 0:
+		self.scale.y = -1
+		self.rotation_degrees = 180
+	elif moving.x > 0:
+		self.scale.y = 1
+		self.rotation_degrees = 0
 
 
 func _on_vision_entered(body):
